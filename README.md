@@ -1,10 +1,15 @@
-# Quiz Kaamelott 🏰⚔️
+Quiz Kaamelott 🏰⚔️
 
 Un quiz interactif basé sur l'univers de Kaamelott, organisé en 4 manches distinctes.
 
-## 🚀 Comment lancer le jeu
+## 🚀 Comment jouer
 
-Ouvrez le fichier `Site/index.html` dans votre navigateur pour commencer le quiz.
+### 🌐 Accès direct en ligne
+**Jouez immédiatement sur GitHub Pages :**  
+👉 **[https://rakhantoshiro.github.io/Quiz-Kaamelott](https://rakhantoshiro.github.io/Quiz-Kaamelott)**
+
+### 💻 Accès local
+Vous pouvez également ouvrir le fichier `index.html` directement dans votre navigateur.
 
 ## 📋 Structure du quiz
 
@@ -34,10 +39,10 @@ Le quiz se compose de **4 manches**, chacune avec son fichier `.docx` associé c
 
 ## 📁 Fichiers du projet
 
-- `Site/` : Contient tous les fichiers HTML du quiz
+- Fichiers HTML du quiz (à la racine) :
   - `index.html` : Page d'accueil
   - `manche1.html` à `manche4.html` : Pages des différentes manches
-  - Autres pages thématiques
+  - Autres pages thématiques (familles, personnages, rome, etc.)
 - `première_manche.docx` : Questions/réponses manche 1
 - `deuxieme_manche.docx` : Questions/réponses manche 2
 - `troisieme_manche.docx` : Questions/réponses manche 3
