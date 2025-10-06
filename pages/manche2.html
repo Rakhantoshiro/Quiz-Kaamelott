@@ -1,122 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manche 2</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Remove scrollbars */
-        }
-        .header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            padding: 10px 50px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .score-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 20px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .team {
-            text-align: center;
-            margin: 0 20px;
-        }
-        .team h2 {
-            margin: 0 0 10px;
-        }
-        .team #score-1, .team #score-2 {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .team button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .team button:hover {
-            background-color: #0056b3;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-        .grid-container a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            font-size: 20px;
-            color: #fff;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: background-color 0.3s;
-            text-align: center;
-        }
-        .grid-container a.selected {
-            background-color: #0b8b29;
-        }
-        .footer {
-            position: absolute;
-            bottom: 30px;
-            left: 10px;
-        }
-        .footer a {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .footer a:hover {
-            background-color: #0056b3;
-        }
-        .rules {
-            text-align: left;
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-        }
-        .rules h2 {
-            text-align: center;
-        }
-    </style>
+    <meta name="description" content="Deuxième manche du Quiz Kaamelott - Choix par équipes">
+    <title>Manche 2 - Quiz Kaamelott</title>
+    <link rel="stylesheet" href="../assets/style.css">
     <script>
         function updateScore(team, delta) {
             const scoreElement = document.getElementById(`score-${team}`);
             let score = parseInt(scoreElement.textContent, 10);
             score = Math.max(0, score + delta);
             scoreElement.textContent = score;
-            localStorage.setItem(`manche2-score-${team}`, score); // Save score for Manche 2 in localStorage
+            localStorage.setItem(`manche2-score-${team}`, score);
         }
 
         function loadScores() {
@@ -176,28 +72,61 @@
             </div>
         </div>
     </div>
-    <div class="rules">
-        <h2>Règles de la Manche 2</h2>
-        <ul>
-            <li>Formez des groupes de 2 dans chaque équipes.</li>
-            <li>9 thèmes possèdant 3 questions à 1, 2 ou 3 points.</li>
-            <li>Une réponse par groupe.</li>
-            <li>En cas de mauvaise réponse, points attribués à l'équipe adverse.</li>
-        </ul>
-    </div>
-    <div class="grid-container">
-        <a id="link-personnages" href="personnages.html">Personnages</a>
-        <a id="link-nom" href="nom_acteur.html">Nom acteurs</a>
-        <a id="link-ennemies" href="ennemies.html">Ennemies</a>
-        <a id="link-familles" href="familles.html">Familles / Amis</a>
-        <a id="link-jeux-pays-galles" href="jeux_pays_galles.html">Jeux du Pays de Galles</a>
-        <a id="link-rome" href="rome.html">Rome</a>
-        <a id="link-tables-rondes" href="tables_rondes.html">Tables Rondes</a>
-        <a id="link-nourriture" href="nourriture.html">Nourriture</a>
-        <a id="link-mystere" href="mystère.html">Mystère</a>
-    </div>
-    <div class="footer">
-        <a href="../index.html">Accueil</a>
+
+    <div class="quiz-container">
+        <h1 class="quiz-title">⚔️ Deuxième Manche - Choix par Équipes 🛡️</h1>
+        
+        <div class="quiz-item" style="max-width: 800px; margin-bottom: 30px;">
+            <h3>📋 Règles de la Manche 2</h3>
+            <div style="text-align: left; line-height: 1.8;">
+                <p><strong>🎯 Fonctionnement :</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Formez des équipes de 2 joueurs</li>
+                    <li>Chaque équipe choisit un thème et une difficulté</li>
+                    <li>Points attribués selon la difficulté sélectionnée</li>
+                </ul>
+                
+                <p><strong>🎨 Code couleur :</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><span style="color: #007bff;"><strong>🔵 Bleu :</strong></span> Questions non choisies (disponibles)</li>
+                    <li><span style="color: #28a745;"><strong>🟢 Vert :</strong></span> Questions déjà choisies (indisponibles)</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">🎯 Choisissez votre thème</h2>
+        
+        <div class="theme-grid">
+            <a id="link-personnages" href="personnages.html" class="theme-card">
+                <h3>👥 Personnages</h3>
+            </a>
+            <a id="link-nom" href="nom_acteur.html" class="theme-card">
+                <h3>🎭 Nom acteurs</h3>
+            </a>
+            <a id="link-ennemies" href="ennemies.html" class="theme-card">
+                <h3>⚔️ Ennemis</h3>
+            </a>
+            <a id="link-familles" href="familles.html" class="theme-card">
+                <h3>👨‍👩‍👧‍👦 Familles / Amis</h3>
+            </a>
+            <a id="link-jeux-pays-galles" href="jeux_pays_galles.html" class="theme-card">
+                <h3>🏴󠁧󠁢󠁷󠁬󠁳󠁿 Jeux du Pays de Galles</h3>
+            </a>
+            <a id="link-rome" href="rome.html" class="theme-card">
+                <h3>🏛️ Rome</h3>
+            </a>
+            <a id="link-tables-rondes" href="tables_rondes.html" class="theme-card">
+                <h3>⭕ Tables Rondes</h3>
+            </a>
+            <a id="link-nourriture" href="nourriture.html" class="theme-card">
+                <h3>🍖 Nourriture</h3>
+            </a>
+            <a id="link-mystere" href="mystère.html" class="theme-card">
+                <h3>❓ Mystère</h3>
+            </a>
+        </div>
+        
+        <a href="../index.html" class="back-link">Retour à l'accueil</a>
     </div>
 </body>
 </html>
