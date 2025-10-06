@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manche 2</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Remove scrollbars */
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            padding: 20px;
+            background-color: #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .team {
+            text-align: center;
+            margin: 0 20px;
+        }
+        .team h2 {
+            margin: 0 0 10px;
+        }
+        .team #score-1, .team #score-2 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .team button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .team button:hover {
+            background-color: #0056b3;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .grid-container a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .grid-container a.selected {
+            background-color: #0b8b29;
+        }
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+        }
+        .footer a {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .footer a:hover {
+            background-color: #0056b3;
+        }
+        .rules {
+            text-align: left;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        .rules h2 {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function updateScore(team, delta) {
+            const scoreElement = document.getElementById(`score-${team}`);
+            let score = parseInt(scoreElement.textContent, 10);
+            score = Math.max(0, score + delta);
+            scoreElement.textContent = score;
+            localStorage.setItem(`manche2-score-${team}`, score); // Save score for Manche 2 in localStorage
+        }
+
+        function loadScores() {
+            const score1 = localStorage.getItem('manche2-score-1') || 0;
+            const score2 = localStorage.getItem('manche2-score-2') || 0;
+            document.getElementById('score-1').textContent = score1;
+            document.getElementById('score-2').textContent = score2;
+        }
+
+        function checkCategoryStatus(categoryPrefix, linkId) {
+            const buttonIds = ['button-1', 'button-2', 'button-3'];
+            const allSelected = buttonIds.every(id => localStorage.getItem(`${categoryPrefix}-${id}`) === 'selected');
+            const categoryLink = document.getElementById(linkId);
+            if (allSelected) {
+                categoryLink.classList.add('selected');
+            } else {
+                categoryLink.classList.remove('selected');
+            }
+        }
+
+        function checkAllCategories() {
+            checkCategoryStatus('personnages', 'link-personnages');
+            checkCategoryStatus('nom', 'link-nom');
+            checkCategoryStatus('ennemies', 'link-ennemies');
+            checkCategoryStatus('familles', 'link-familles');
+            checkCategoryStatus('jeux', 'link-jeux-pays-galles');
+            checkCategoryStatus('rome', 'link-rome');
+            checkCategoryStatus('table', 'link-tables-rondes');
+            checkCategoryStatus('nourriture', 'link-nourriture');
+            checkCategoryStatus('mysteres', 'link-mystere');
+        }
+        
+        window.onload = () => {
+            loadScores();
+            checkAllCategories();
+        };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="score-container">
+            <div class="team">
+                <h2>Les Chevaliers de la Table Ronde</h2>
+                <div id="score-1">0</div>
+                <button onclick="updateScore(1, -1)" style="background-color:rgb(130, 11, 11)">-1</button>
+                <button onclick="updateScore(1, -5)" style="background-color:rgb(130, 11, 11)">-5</button>
+                <button onclick="updateScore(1, 1)" style="background-color:rgb(11, 130, 49)">+1</button>
+                <button onclick="updateScore(1, 5)" style="background-color:rgb(11, 130, 49)">+5</button>
+            </div>
+            <div class="team">
+                <h2>Les Félons de Logres</h2>
+                <div id="score-2">0</div>
+                <button onclick="updateScore(2, -1)" style="background-color:rgb(130, 11, 11)">-1</button>
+                <button onclick="updateScore(2, -5)" style="background-color:rgb(130, 11, 11)">-5</button>
+                <button onclick="updateScore(2, 1)" style="background-color:rgb(11, 130, 49)">+1</button>
+                <button onclick="updateScore(2, 5)" style="background-color:rgb(11, 130, 49)">+5</button>
+            </div>
+        </div>
+    </div>
+    <div class="rules">
+        <h2>Règles de la Manche 2</h2>
+        <ul>
+            <li>Formez des groupes de 2 dans chaque équipes.</li>
+            <li>9 thèmes possèdant 3 questions à 1, 2 ou 3 points.</li>
+            <li>Une réponse par groupe.</li>
+            <li>En cas de mauvaise réponse, points attribués à l'équipe adverse.</li>
+        </ul>
+    </div>
+    <div class="grid-container">
+        <a id="link-personnages" href="personnages.html">Personnages</a>
+        <a id="link-nom" href="nom_acteur.html">Nom acteurs</a>
+        <a id="link-ennemies" href="ennemies.html">Ennemies</a>
+        <a id="link-familles" href="familles.html">Familles / Amis</a>
+        <a id="link-jeux-pays-galles" href="jeux_pays_galles.html">Jeux du Pays de Galles</a>
+        <a id="link-rome" href="rome.html">Rome</a>
+        <a id="link-tables-rondes" href="tables_rondes.html">Tables Rondes</a>
+        <a id="link-nourriture" href="nourriture.html">Nourriture</a>
+        <a id="link-mystere" href="mystère.html">Mystère</a>
+    </div>
+    <div class="footer">
+        <a href="index.html">Accueil</a>
+    </div>
+</body>
+</html>

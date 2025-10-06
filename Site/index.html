@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Kaamelott</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px 50px;
+            background-color: #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            padding: 20px;
+            background-color: #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .team {
+            text-align: center;
+            margin: 0 20px;
+        }
+        .team h2 {
+            margin: 0 0 10px;
+        }
+        .team #score-1, .team #score-2 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .team button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .team button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            gap: 20px;
+        }
+        .button-container a {
+            display: inline-block;
+            padding: 30px 60px;
+            font-size: 32px;
+            color: #fff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function updateScore(team, delta) {
+            const scoreElement = document.getElementById(`score-${team}`);
+            let score = parseInt(scoreElement.textContent, 10);
+            score = Math.max(0, score + delta);
+            scoreElement.textContent = score;
+            localStorage.setItem(`score-${team}`, score); // Save score in localStorage
+        }
+
+        function loadScores() {
+            const score1 = localStorage.getItem('score-1') || 0;
+            const score2 = localStorage.getItem('score-2') || 0;
+            document.getElementById('score-1').textContent = score1;
+            document.getElementById('score-2').textContent = score2;
+        }
+
+        window.onload = loadScores;
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="score-container">
+            <div class="team">
+                <h2>Les Chevaliers de la Table Ronde</h2>
+                <div id="score-1">0</div>
+                <button onclick="updateScore(1, -1)" style="background-color:rgb(130, 11, 11)">-1</button>
+                <button onclick="updateScore(1, 1)" style="background-color:rgb(11, 130, 49)">+1</button>
+            </div>
+            <div class="team">
+                <h2>Les Félons de Logres</h2>
+                <div id="score-2">0</div>
+                <button onclick="updateScore(2, -1)" style="background-color:rgb(130, 11, 11)">-1</button>
+                <button onclick="updateScore(2, 1)" style="background-color:rgb(11, 130, 49)">+1</button>
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <a href="manche1.html">Manche 1</a>
+        <a href="manche2.html">Manche 2</a>
+        <a href="manche3.html">Manche 3</a>
+        <a href="manche4.html">Manche 4</a>
+    </div>
+</body>
+</html>
