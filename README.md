@@ -37,17 +37,35 @@ Le quiz se compose de **4 manches**, chacune avec son fichier `.docx` associé c
 - Format : Jeu de devinettes
 - Fonctionnement : Vous pensez à une scène de Kaamelott et les participants doivent la deviner
 
-## 📁 Fichiers du projet
+## 📁 Structure du projet
 
-- Fichiers HTML du quiz (à la racine) :
-  - `index.html` : Page d'accueil
-  - `manche1.html` à `manche4.html` : Pages des différentes manches
-  - Autres pages thématiques (familles, personnages, rome, etc.)
-- `première_manche.docx` : Questions/réponses manche 1
-- `deuxieme_manche.docx` : Questions/réponses manche 2
-- `troisieme_manche.docx` : Questions/réponses manche 3
-- `quatrieme_manche.docx` : Questions/réponses manche 4
-- `Questions_reponses.odt` : Document général des questions
+```
+Quiz-Kaamelott/
+├── 📄 index.html                    # Page d'accueil principale
+├── 📄 README.md                     # Documentation du projet
+├── 🎨 assets/                       # Ressources statiques
+│   └── style.css                    # Feuille de style CSS
+├── 📑 pages/                        # Pages HTML du quiz
+│   ├── manche1.html                 # Page de la manche 1
+│   ├── manche2.html                 # Page de la manche 2  
+│   ├── manche3.html                 # Page de la manche 3
+│   ├── manche4.html                 # Page de la manche 4
+│   ├── personnages.html             # Questions sur les personnages
+│   ├── nom_acteur.html              # Questions sur les acteurs
+│   ├── ennemies.html                # Questions sur les ennemis
+│   ├── familles.html                # Questions sur les familles/amis
+│   ├── jeux_pays_galles.html        # Questions sur les jeux
+│   ├── rome.html                    # Questions sur Rome
+│   ├── tables_rondes.html           # Questions sur les tables rondes
+│   ├── nourriture.html              # Questions sur la nourriture
+│   └── mystère.html                 # Questions mystère
+└── 📚 docs/                         # Documentation et questions
+    ├── première_manche.docx         # Questions/réponses manche 1
+    ├── deuxieme_manche.docx         # Questions/réponses manche 2
+    ├── troisieme_manche.docx        # Questions/réponses manche 3
+    ├── quatrieme_manche.docx        # Questions/réponses manche 4
+    └── Questions_reponses.odt       # Document général
+```
 
 ---
 
