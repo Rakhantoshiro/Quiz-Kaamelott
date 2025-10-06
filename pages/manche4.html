@@ -1,97 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manche 4 - Devine la scène</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        .header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 50px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .score-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 20px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }        
-        .team {
-            text-align: center;
-            margin: 0 20px;
-        }
-        .team h2 {
-            margin: 0 0 10px;
-        }
-        .team #score-1, .team #score-2 {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .team button, .button-group button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .team button:hover, .button-group button:hover {
-            background-color: #0056b3;
-        }
-        .rules {
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-        }
-        .rules h2 {
-            text-align: center;
-        }
-        .rules p {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-        }
-        .footer a {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .footer a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <meta name="description" content="Quatrième manche du Quiz Kaamelott - Devinettes de scènes">
+    <title>Manche 4 - Quiz Kaamelott</title>
+    <link rel="stylesheet" href="../assets/style.css">
     <script>
         function updateScore(team, delta) {
             const scoreElement = document.getElementById(`score-${team}`);
@@ -108,9 +22,30 @@
             document.getElementById('score-2').textContent = score2;
         }
 
-        window.onload = () => {
-            loadScores();
-        };
+        function generateRandomScene() {
+            const scenes = [
+                "Arthur qui essaie de comprendre les explications de Karadoc",
+                "Perceval qui raconte une de ses aventures improbables",
+                "Léodagan qui perd patience avec Arthur",
+                "Dame Séli qui fait des reproches à Karadoc",
+                "Bohort qui explique des règles de chevalerie",
+                "Merlin qui fait de la magie (ou pas)",
+                "Guenièvre qui s'ennuie profondément",
+                "Le Père Blaise qui écrit les exploits d'Arthur",
+                "Venec qui ne comprend rien à rien",
+                "Yvain et Gauvain qui se disputent",
+                "Calogrenant qui raconte ses rêves étranges",
+                "Lancelot qui arrive de manière dramatique",
+                "Arthur qui mange à la cuisine",
+                "Une réunion de la Table Ronde qui dérape",
+                "Perceval qui explique sa vision du monde"
+            ];
+            
+            const randomScene = scenes[Math.floor(Math.random() * scenes.length)];
+            document.getElementById('random-scene').textContent = randomScene;
+        }
+
+        window.onload = loadScores;
     </script>
 </head>
 <body>
@@ -134,19 +69,52 @@
             </div>
         </div>
     </div>
-    <h1>Devine la scène</h1>
-    <div class="rules">
-        <h2>Règles de la Manche 4</h2>
-        <ul>
-            <li>Un joueur par équipe a la parole à tour de rôle.</li>
-            <li>Le joueur peut soit proposer une scène, soit poser une question fermée.</li>
-            <li>Une fois la proposition faite ou la question posée, la main passe à l'équipe adverse.</li>
-            <li>Si la scène n'est pas trouvée, le second joueur de chaque équipe prend la parole.</li>
-            <li>Le jeu continue jusqu'à ce que la scène soit trouvée.</li>
-        </ul>    
-    </div>
-    <div class="footer">
-        <a href="javascript:history.back()">Retour</a>
+
+    <div class="quiz-container">
+        <h1 class="quiz-title">🎭 Quatrième Manche - Devinettes de Scènes 🎪</h1>
+        
+        <div class="quiz-item" style="max-width: 800px; margin-bottom: 30px;">
+            <h3>📋 Règles de la Manche 4</h3>
+            <p><strong>Format :</strong> Jeu de devinettes</p>
+            <p><strong>Fonctionnement :</strong> Vous pensez à une scène de Kaamelott et les participants doivent la deviner</p>
+            <p><strong>Scoring :</strong> Points attribués selon la difficulté de la scène</p>
+            <p><strong>Conseil :</strong> Donnez des indices progressifs pour aider les équipes</p>
+        </div>
+
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <h3>🎲 Générateur de Scènes</h3>
+                <p>Besoin d'inspiration ? Cliquez sur le bouton pour générer une scène aléatoire :</p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <em id="random-scene" style="text-align: center; font-size: 1.1rem; color: #2c3e50;">
+                        Cliquez sur "Nouvelle scène" pour commencer
+                    </em>
+                </div>
+                <button onclick="generateRandomScene()" class="quiz-button" style="background-color: #17a2b8;">
+                    🎪 Nouvelle scène
+                </button>
+            </div>
+            
+            <div class="quiz-item">
+                <h3>📝 Instructions pour l'animateur</h3>
+                <p><strong>1. Choisissez une scène</strong> (ou utilisez le générateur)</p>
+                <p><strong>2. Donnez des indices</strong> progressifs aux équipes</p>
+                <p><strong>3. La première équipe</strong> qui devine correctement gagne des points</p>
+                <p><strong>4. Utilisez les boutons</strong> +/- pour ajuster les scores</p>
+                <p><strong>5. Consultez</strong> le document "quatrieme_manche.docx" pour plus de scènes</p>
+            </div>
+            
+            <div class="quiz-item">
+                <h3>💡 Conseils d'animation</h3>
+                <p><strong>Indices faciles :</strong> Lieu, personnages présents</p>
+                <p><strong>Indices moyens :</strong> Contexte, époque</p>
+                <p><strong>Indices difficiles :</strong> Dialogues spécifiques, détails</p>
+                <p><strong>Variez les scènes :</strong> Mélanges comique/dramatique</p>
+                <p><strong>Encouragez :</strong> Les tentatives même incorrectes</p>
+            </div>
+        </div>
+        
+        <a href="../index.html" class="back-link">Retour à l'accueil</a>
     </div>
 </body>
 </html>

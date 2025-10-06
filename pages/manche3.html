@@ -1,174 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manche 3</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Remove scrollbars */
-        }
-        .header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 50px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .score-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 20px;
-            background-color: #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .team {
-            text-align: center;
-            margin: 0 20px;
-        }
-        .team h2 {
-            margin: 0 0 10px;
-        }
-        .team #score-1, .team #score-2 {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .chrono-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin: 20px 0;
-        }
-        .chrono {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .team button, .button-group button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007BFF;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .team button:hover, .button-group button:hover {
-            background-color: #0056b3;
-        }
-        .rules {
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-        }
-        .rules h2 {
-            text-align: center;
-        }
-        .rules p {
-            margin: 10px 0;
-            font-size: 18px;
-        }
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-        }
-        .footer a {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .footer a:hover {
-            background-color: #0056b3;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-    </style>
+    <meta name="description" content="Troisième manche du Quiz Kaamelott - Contre la montre">
+    <title>Manche 3 - Quiz Kaamelott</title>
+    <link rel="stylesheet" href="../assets/style.css">
     <script>
-        let timeElapsed1 = 0;
-        let timeElapsed2 = 0;
-        let interval1 = null;
-        let interval2 = null;
-
-        function startChrono(team) {
-            const chronoDisplay = document.getElementById(`chrono-${team}`);
-            const startTime = Date.now() - (team === 1 ? timeElapsed1 : timeElapsed2);
-
-            if ((team === 1 && !interval1) || (team === 2 && !interval2)) {
-                const interval = setInterval(() => {
-                    if (team === 1) {
-                        timeElapsed1 = Date.now() - startTime;
-                        const seconds = (timeElapsed1 / 1000).toFixed(2);
-                        chronoDisplay.textContent = `Temps écoulé : ${seconds}s`;
-                    } else {
-                        timeElapsed2 = Date.now() - startTime;
-                        const seconds = (timeElapsed2 / 1000).toFixed(2);
-                        chronoDisplay.textContent = `Temps écoulé : ${seconds}s`;
-                    }
-                }, 50);
-
-                if (team === 1) interval1 = interval;
-                else interval2 = interval;
-            }
-        }
-
-        function stopChrono(team) {
-            if (team === 1 && interval1) {
-                clearInterval(interval1);
-                interval1 = null;
-            } else if (team === 2 && interval2) {
-                clearInterval(interval2);
-                interval2 = null;
-            }
-        }
-
-        function resetChrono(team) {
-            stopChrono(team);
-            if (team === 1) {
-                timeElapsed1 = 0;
-                document.getElementById('chrono-1').textContent = 'Temps écoulé : 0.00s';
-            } else {
-                timeElapsed2 = 0;
-                document.getElementById('chrono-2').textContent = 'Temps écoulé : 0.00s';
-            }
-        }
-
-        function addPenalty(team) {
-            if (team === 1) {
-                timeElapsed1 += 20000;
-                const seconds = (timeElapsed1 / 1000).toFixed(2);
-                document.getElementById('chrono-1').textContent = `Temps écoulé : ${seconds}s`;
-            } else {
-                timeElapsed2 += 20000;
-                const seconds = (timeElapsed2 / 1000).toFixed(2);
-                document.getElementById('chrono-2').textContent = `Temps écoulé : ${seconds}s`;
-            }
-        }
+        let timer;
+        let timeLeft = 120; // 2 minutes par défaut
+        let questionsAnswered = 0;
+        let currentQuestion = 0;
 
         function updateScore(team, delta) {
             const scoreElement = document.getElementById(`score-${team}`);
@@ -185,9 +27,61 @@
             document.getElementById('score-2').textContent = score2;
         }
 
-        window.onload = () => {
-            loadScores();
-        };
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer');
+            const progressFill = document.getElementById('progress-fill');
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Mise à jour de la barre de progression
+                const progressPercent = ((120 - timeLeft) / 120) * 100;
+                progressFill.style.width = progressPercent + '%';
+                
+                if (timeLeft <= 0) {
+                    stopTimer();
+                    alert('Temps écoulé ! Questions répondues : ' + questionsAnswered);
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            startBtn.style.display = 'inline-block';
+            stopBtn.style.display = 'none';
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timeLeft = 120;
+            questionsAnswered = 0;
+            currentQuestion = 0;
+            document.getElementById('timer').textContent = '2:00';
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('questions-count').textContent = questionsAnswered;
+        }
+
+        function addQuestion() {
+            questionsAnswered++;
+            document.getElementById('questions-count').textContent = questionsAnswered;
+        }
+
+        function removeQuestion() {
+            questionsAnswered = Math.max(0, questionsAnswered - 1);
+            document.getElementById('questions-count').textContent = questionsAnswered;
+        }
+
+        window.onload = loadScores;
     </script>
 </head>
 <body>
@@ -211,35 +105,64 @@
             </div>
         </div>
     </div>
-    <div class="chrono-container">
-        <div>
-            <div class="chrono" id="chrono-1" style="font-size: 50px;">Temps écoulé : 0.00s</div>
-            <div class="button-group">
-                <button onclick="startChrono(1)">Démarrer</button>
-                <button onclick="stopChrono(1)">Arrêter</button>
-                <button onclick="resetChrono(1)">Réinitialiser</button>
-                <button onclick="addPenalty(1)">Pénalité +20</button>
+
+    <div class="quiz-container">
+        <h1 class="quiz-title">⏱️ Troisième Manche - Contre la Montre ⏰</h1>
+        
+        <div class="quiz-item" style="max-width: 600px; margin-bottom: 30px;">
+            <h3>📋 Règles de la Manche 3</h3>
+            <p><strong>Format :</strong> Questions avec temps limité</p>
+            <p><strong>Objectif :</strong> Répondre à un maximum de questions dans le temps imparti (2 minutes)</p>
+            <p><strong>Scoring :</strong> +1 point par bonne réponse, utilisez les boutons de score pour ajuster</p>
+        </div>
+
+        <div class="timer-container">
+            <h3>⏰ Timer</h3>
+            <div id="timer" class="timer">2:00</div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div style="margin: 15px 0;">
+                <button id="start-btn" onclick="startTimer()" class="quiz-button" style="background-color: #28a745; margin: 5px;">
+                    ▶️ Démarrer
+                </button>
+                <button id="stop-btn" onclick="stopTimer()" class="quiz-button" style="background-color: #dc3545; margin: 5px; display: none;">
+                    ⏹️ Arrêter
+                </button>
+                <button onclick="resetTimer()" class="quiz-button" style="background-color: #6c757d; margin: 5px;">
+                    🔄 Reset
+                </button>
             </div>
         </div>
-        <div>
-            <div class="chrono" id="chrono-2" style="font-size: 50px;">Temps écoulé : 0.00s</div>
-            <div class="button-group">
-                <button onclick="startChrono(2)">Démarrer</button>
-                <button onclick="stopChrono(2)">Arrêter</button>
-                <button onclick="resetChrono(2)">Réinitialiser</button>
-                <button onclick="addPenalty(2)">Pénalité +20</button>
+
+        <div class="quiz-grid">
+            <div class="quiz-item">
+                <h3>📊 Compteur de Questions</h3>
+                <p>Questions répondues :</p>
+                <div style="font-size: 2rem; font-weight: bold; color: #2c3e50; margin: 10px 0;">
+                    <span id="questions-count">0</span>
+                </div>
+                <div>
+                    <button onclick="addQuestion()" class="quiz-button" style="background-color: #28a745; margin: 5px;">
+                        ➕ Question répondue
+                    </button>
+                    <button onclick="removeQuestion()" class="quiz-button" style="background-color: #dc3545; margin: 5px;">
+                        ➖ Annuler
+                    </button>
+                </div>
+            </div>
+            
+            <div class="quiz-item">
+                <h3>📝 Instructions</h3>
+                <p>1. Démarrez le timer</p>
+                <p>2. Posez les questions du document "troisieme_manche.docx"</p>
+                <p>3. Cliquez sur "Question répondue" pour chaque bonne réponse</p>
+                <p>4. Ajustez les scores avec les boutons +/- en haut</p>
+                <p>5. Le timer s'arrête automatiquement à 0</p>
             </div>
         </div>
-    </div>
-    <div class="rules">
-        <h2>Règles de la Manche 3</h2>
-        <ul>
-            <li>Chaque groupe de 2 joueur doit répondre à 10 questions en un minimum de temps.</li>
-            <li>Passer une question ajoute 20 secondes au chrono.</li>
-        </ul>
-    </div>
-    <div class="footer">
-        <a href="javascript:history.back()">Accueil</a>
+        
+        <a href="../index.html" class="back-link">Retour à l'accueil</a>
     </div>
 </body>
 </html>
